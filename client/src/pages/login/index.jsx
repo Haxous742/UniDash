@@ -16,8 +16,8 @@ function Login() {
             response = await loginUser(user);
             if (response.success){
                 toast.success(response.message);
-                localStorage.setItem('token', response.data.token);
-                window.location.href = '/';
+                // localStorage.setItem('token', response.data.token);
+                window.location.href = '/dashboard';
             }
             else{
                 toast.error(response.message);
