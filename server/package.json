@@ -17,8 +17,17 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
+    "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.17.0"
+    "mongoose": "^8.17.0",
+    "multer": "^2.0.2",
+    "path": "^0.12.7",
+    "@langchain/community": "^0.0.40",
+    "@langchain/core": "^0.1.45",
+    "@langchain/google-genai": "^0.0.15",
+    "@langchain/pinecone": "^0.0.4",
+    "langchain": "^0.1.25",
+    "pdf-parse": "^1.1.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
