@@ -6,6 +6,7 @@ const authRouter = require('./controllers/authController');
 const userRouter = require('./controllers/userController');
 const uploadRouter = require('./controllers/uploadController');
 const queryRouter = require('./controllers/queryController');
+const firebaseRouter = require('./controllers/firebaseController');
 
 app.use(cors({
   origin: 'http://localhost:5173', // 👈 frontend URL
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
+app.use('/api', firebaseRouter);
 app.use('/api', uploadRouter)
 app.use('/api', queryRouter);
 
