@@ -1,38 +1,44 @@
-import { useEffect , useState} from "react";
-import { useNavigate } from "react-router";
-import getLoggedUser from "../Api/user";
+import { useEffect , useState, useCallback, cloneElement } from "react";
+import { useNavigate } from "react-router-dom";
+import { getLoggedUser } from "../Api/user";
 
 function ProtectedRoute ({children}) {
     const navigate = useNavigate();
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    const[user, setUser] = useState(null);
-
-    const getLoggedInUser = async () =>{
-        let response = null;
-        try{
-            response = await getLoggedUser();
-            if (response.success){
+    const getLoggedInUser = useCallback(async () => {
+        setLoading(true);
+        try {
+            const response = await getLoggedUser();
+            if (response && response.success) {
                 setUser(response.data);
+            } else {
+                navigate('/login', { replace: true });
             }
-            else{
-                navigate('/login');
-            }
-        } catch(err){
+        } catch (err) {
             console.log(err);
-            navigate('/login');
+            navigate('/login', { replace: true });
+        } finally {
+            setLoading(false);
         }
-    }
+    }, [navigate]);
 
     useEffect( () => {
             getLoggedInUser();
-    });
+    }, [getLoggedInUser]);
+
+    // Show loading state while checking authentication
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+                <div className="text-white text-xl">Loading...</div>
+            </div>
+        );
+    }
   
-    return (
-        <div>
-            <p>Name: { user?.firstname + ' ' + user?.lastname}</p>
-            {children}
-        </div>
-    )
+    // Only render children if user is authenticated and loading is complete
+    return user ? cloneElement(children, { user }) : null;
 
 }
 
