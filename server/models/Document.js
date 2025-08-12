@@ -50,7 +50,6 @@ const DocumentSchema = new mongoose.Schema({
   }
 })
 
-// Index for faster queries
 DocumentSchema.index({ userId: 1, uploadedAt: -1 })
 DocumentSchema.index({ status: 1 })
 
