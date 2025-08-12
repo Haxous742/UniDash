@@ -1,5 +1,6 @@
 import { axiosInstance } from "./index.js";
 
+// Get logged-in user details
 const getLoggedUser = async() => {
     try{
         const response = await axiosInstance.get('/api/user/get-logged-user');
@@ -9,6 +10,8 @@ const getLoggedUser = async() => {
     }
 }
 
+
+// Update user profile
 const updateProfile = async(profileData) => {
     try{
         const response = await axiosInstance.put('/api/user/update-profile', profileData);

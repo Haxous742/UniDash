@@ -26,6 +26,8 @@ export const generateFlashCards = async (documentId, userId, options = {}) => {
   }
 }
 
+
+
 // Get user's flashcards with filtering and pagination
 export const getUserFlashCards = async (userId, params = {}) => {
   try {
@@ -38,6 +40,8 @@ export const getUserFlashCards = async (userId, params = {}) => {
     throw error
   }
 }
+
+
 
 // Get single flashcard by ID
 export const getFlashCard = async (cardId, userId) => {
@@ -52,6 +56,8 @@ export const getFlashCard = async (cardId, userId) => {
   }
 }
 
+
+
 // Update flashcard
 export const updateFlashCard = async (cardId, updateData) => {
   try {
@@ -62,6 +68,8 @@ export const updateFlashCard = async (cardId, updateData) => {
     throw error
   }
 }
+
+
 
 // Delete flashcard
 export const deleteFlashCard = async (cardId, userId) => {
@@ -75,6 +83,8 @@ export const deleteFlashCard = async (cardId, userId) => {
     throw error
   }
 }
+
+
 
 // Record flashcard review
 export const recordFlashCardReview = async (cardId, userId, isCorrect, responseTime) => {
@@ -91,6 +101,8 @@ export const recordFlashCardReview = async (cardId, userId, isCorrect, responseT
   }
 }
 
+
+
 // Get flashcard statistics
 export const getFlashCardStats = async (userId) => {
   try {
@@ -102,7 +114,8 @@ export const getFlashCardStats = async (userId) => {
   }
 }
 
-// FlashCard Sets API functions
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Create new flashcard set
 export const createFlashCardSet = async (userId, name, description, documentIds, flashCardIds, tags) => {
@@ -122,6 +135,8 @@ export const createFlashCardSet = async (userId, name, description, documentIds,
   }
 }
 
+
+
 // Get user's flashcard sets
 export const getUserFlashCardSets = async (userId, params = {}) => {
   try {
@@ -134,6 +149,8 @@ export const getUserFlashCardSets = async (userId, params = {}) => {
     throw error
   }
 }
+
+
 
 // Get single flashcard set
 export const getFlashCardSet = async (setId, userId) => {
@@ -148,6 +165,8 @@ export const getFlashCardSet = async (setId, userId) => {
   }
 }
 
+
+
 // Update flashcard set
 export const updateFlashCardSet = async (setId, updateData) => {
   try {
@@ -158,6 +177,8 @@ export const updateFlashCardSet = async (setId, updateData) => {
     throw error
   }
 }
+
+
 
 // Add flashcards to set
 export const addFlashCardsToSet = async (setId, userId, flashCardIds) => {
@@ -173,6 +194,8 @@ export const addFlashCardsToSet = async (setId, userId, flashCardIds) => {
   }
 }
 
+
+
 // Remove flashcards from set
 export const removeFlashCardsFromSet = async (setId, userId, flashCardIds) => {
   try {
@@ -186,6 +209,8 @@ export const removeFlashCardsFromSet = async (setId, userId, flashCardIds) => {
   }
 }
 
+
+
 // Delete flashcard set
 export const deleteFlashCardSet = async (setId, userId) => {
   try {
@@ -198,6 +223,8 @@ export const deleteFlashCardSet = async (setId, userId) => {
     throw error
   }
 }
+
+
 
 // Record study session
 export const recordStudySession = async (setId, userId, studyTime, cardsReviewed, accuracy) => {

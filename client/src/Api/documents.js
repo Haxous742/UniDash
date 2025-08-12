@@ -11,6 +11,7 @@ export const getUserDocuments = async(userId) => {
     }
 }
 
+
 // Delete a document
 export const deleteDocument = async(documentId, userId) => {
     try {

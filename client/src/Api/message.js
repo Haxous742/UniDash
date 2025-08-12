@@ -13,6 +13,8 @@ export const getChatMessages = async (chatId, page = 1, limit = 50) => {
     }
 }
 
+
+
 // Create a new message
 export const createMessage = async (chatId, userId, content, role, messageType = 'text', metadata = {}) => {
     try {
@@ -31,6 +33,8 @@ export const createMessage = async (chatId, userId, content, role, messageType =
     }
 }
 
+
+
 // Update a message
 export const updateMessage = async (messageId, userId, content, isRead, metadata) => {
     try {
@@ -47,6 +51,8 @@ export const updateMessage = async (messageId, userId, content, isRead, metadata
     }
 }
 
+
+
 // Delete a message
 export const deleteMessage = async (messageId, userId) => {
     try {
@@ -60,6 +66,8 @@ export const deleteMessage = async (messageId, userId) => {
     }
 }
 
+
+
 // Mark messages as read
 export const markMessagesAsRead = async (chatId, userId) => {
     try {
@@ -72,6 +80,8 @@ export const markMessagesAsRead = async (chatId, userId) => {
         return { success: false, error: err.response?.data || err.message };
     }
 }
+
+
 
 // Search messages
 export const searchMessages = async (userId, query, chatId = null, page = 1, limit = 20) => {

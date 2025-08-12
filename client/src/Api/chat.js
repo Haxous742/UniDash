@@ -13,6 +13,8 @@ export const getUserChats = async (userId, page = 1, limit = 20) => {
     }
 }
 
+
+
 // Get a specific chat by ID
 export const getChatById = async (userId, chatId) => {
     try {
@@ -23,6 +25,7 @@ export const getChatById = async (userId, chatId) => {
         return { success: false, error: err.response?.data || err.message };
     }
 }
+
 
 // Create a new chat
 export const createChat = async (userId, name, description = '') => {
@@ -39,6 +42,8 @@ export const createChat = async (userId, name, description = '') => {
     }
 }
 
+
+
 // Update a chat
 export const updateChat = async (chatId, userId, name, description) => {
     try {
@@ -54,6 +59,8 @@ export const updateChat = async (chatId, userId, name, description) => {
     }
 }
 
+
+
 // Delete a chat
 export const deleteChat = async (chatId, userId) => {
     try {
@@ -66,6 +73,8 @@ export const deleteChat = async (chatId, userId) => {
         return { success: false, error: err.response?.data || err.message };
     }
 }
+
+
 
 // Get chat statistics for a user
 export const getChatStats = async (userId) => {
