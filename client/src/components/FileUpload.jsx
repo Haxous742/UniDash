@@ -36,7 +36,7 @@ const FileUpload = ({ onFileUploaded, user, onUploadComplete }) => {
     const newFiles = selectedFiles.map(file => ({
       id: Date.now() + Math.random(),
       file,
-      status: 'pending', // pending, uploading, success, error
+      status: 'pending',
       progress: 0
     }))
     
@@ -46,7 +46,7 @@ const FileUpload = ({ onFileUploaded, user, onUploadComplete }) => {
   const handleFileInput = (e) => {
     const selectedFiles = Array.from(e.target.files)
     handleFiles(selectedFiles)
-    e.target.value = '' // Reset input
+    e.target.value = '' 
   }
 
   const uploadFile = async (fileItem) => {
@@ -105,7 +105,6 @@ const FileUpload = ({ onFileUploaded, user, onUploadComplete }) => {
     
     setUploading(false)
     
-    // Call onUploadComplete after all files are processed
     if (onUploadComplete) {
       onUploadComplete()
     }

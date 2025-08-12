@@ -33,7 +33,6 @@ const ChatInterface = ({ user }) => {
     scrollToBottom()
   }, [messages])
 
-  // Load user's chats when component mounts
   useEffect(() => {
     console.log('User object in ChatInterface:', user)
     console.log('User ID:', user?._id)
@@ -42,7 +41,7 @@ const ChatInterface = ({ user }) => {
     }
   }, [user?._id])
 
-  // Load messages when current chat changes
+
   useEffect(() => {
     if (currentChat) {
       loadChatMessages(currentChat._id)
@@ -491,6 +490,8 @@ const ChatInterface = ({ user }) => {
           </CardContent>
         </Card>
       </div>
+
+
 
       {/* Chat Area */}
       <div className="flex-1">
