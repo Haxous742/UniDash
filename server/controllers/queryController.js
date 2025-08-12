@@ -8,7 +8,6 @@ router.post('/query', async (req, res) => {
   try {
     const { query, userId } = req.body
 
-    // Validation
     if (!query || !query.trim()) {
       return res.status(400).json({
         success: false,
@@ -25,7 +24,6 @@ router.post('/query', async (req, res) => {
 
     console.log(`🔍 Query received from user ${userId}: "${query}"`)
 
-    // Query documents using RAG service
     const startTime = Date.now()
     const result = await ragService.queryDocuments(query.trim(), userId)
     const processingTime = Date.now() - startTime
@@ -46,7 +44,6 @@ router.post('/query', async (req, res) => {
     let statusCode = 500
     let errorMessage = 'Failed to process query'
 
-    // Handle specific error types
     if (error.message.includes('API key')) {
       statusCode = 401
       errorMessage = 'Invalid API configuration'
@@ -65,7 +62,6 @@ router.post('/query', async (req, res) => {
     })
   }
 })
-
 
 
 // Get user's document statistics

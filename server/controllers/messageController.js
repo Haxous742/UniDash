@@ -46,6 +46,7 @@ router.get('/messages/:chatId', async (req, res) => {
   }
 })
 
+
 // Create a new message
 router.post('/messages', async (req, res) => {
   try {
@@ -110,6 +111,7 @@ router.post('/messages', async (req, res) => {
   }
 })
 
+
 // Delete a message
 router.delete('/messages/:messageId', async (req, res) => {
   try {
@@ -146,6 +148,7 @@ router.delete('/messages/:messageId', async (req, res) => {
     })
   }
 })
+
 
 // Search messages
 router.get('/messages/search/:userId', async (req, res) => {

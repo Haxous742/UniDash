@@ -6,40 +6,6 @@ const ragService = require('../utils/langchain')
 
 const router = express.Router()
 
-// Health check endpoint
-router.get('/health', (req, res) => {
-  res.json({ success: true, message: 'FlashCard API is working' })
-})
-
-// Debug endpoint to check flashcard data
-router.get('/debug/:userId', async (req, res) => {
-  try {
-    const { userId } = req.params
-    const flashcards = await FlashCard.find({ userId, isActive: true }).limit(3)
-    
-    console.log('Debug: Found flashcards:', flashcards.map(card => ({
-      id: card._id,
-      question: card.question?.substring(0, 50),
-      answer: card.answer?.substring(0, 50),
-      hasAnswer: !!card.answer
-    })))
-    
-    res.json({
-      success: true,
-      count: flashcards.length,
-      sample: flashcards.map(card => ({
-        id: card._id,
-        question: card.question,
-        answer: card.answer,
-        hasAnswer: !!card.answer,
-        difficulty: card.difficulty
-      }))
-    })
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message })
-  }
-})
-
 // Generate flashcards from document
 router.post('/generate', async (req, res) => {
   console.log('📥 POST /api/flashcards/generate - Request received')
@@ -154,6 +120,7 @@ router.post('/generate', async (req, res) => {
   }
 })
 
+
 // Get user's flashcards with filtering and pagination
 router.get('/user/:userId', async (req, res) => {
   try {
@@ -215,6 +182,7 @@ router.get('/user/:userId', async (req, res) => {
     })
   }
 })
+
 
 // Get user's flashcard statistics - MUST come before /:cardId route
 router.get('/stats/:userId', async (req, res) => {
@@ -287,8 +255,6 @@ router.get('/stats/:userId', async (req, res) => {
   }
 })
 
-// Health check endpoint should be before parameterized routes
-// Moved to top after generate endpoint
 
 // Get single flashcard by ID
 router.get('/:cardId', async (req, res) => {
@@ -322,6 +288,7 @@ router.get('/:cardId', async (req, res) => {
     })
   }
 })
+
 
 // Update flashcard
 router.put('/:cardId', async (req, res) => {
@@ -363,6 +330,7 @@ router.put('/:cardId', async (req, res) => {
   }
 })
 
+
 // Delete flashcard (soft delete)
 router.delete('/:cardId', async (req, res) => {
   try {
@@ -395,6 +363,7 @@ router.delete('/:cardId', async (req, res) => {
     })
   }
 })
+
 
 // Record flashcard review
 router.post('/:cardId/review', async (req, res) => {

@@ -7,7 +7,6 @@ const ragService = require('../utils/langchain')
 
 const router = express.Router()
 
-// Configure multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadDir = path.join(__dirname, '..', process.env.UPLOAD_DIR || 'uploads')
@@ -56,7 +55,7 @@ router.post('/upload', upload.single('file'), async (req, res) => {
 
     console.log(`📤 File upload started: ${req.file.originalname}`)
 
-    // Create document record
+
     const document = new Document({
       filename: req.file.filename,
       originalName: req.file.originalname,
@@ -70,7 +69,6 @@ router.post('/upload', upload.single('file'), async (req, res) => {
     await document.save()
     console.log(`💾 Document record created: ${document._id}`)
 
-    // Process document asynchronously
     processDocumentAsync(document, req.file.path, userId)
 
     res.status(200).json({
@@ -96,14 +94,13 @@ router.post('/upload', upload.single('file'), async (req, res) => {
   }
 })
 
-// Async function to process document
+
 async function processDocumentAsync(document, filePath, userId) {
   try {
     console.log(`⚙️  Processing document: ${document.originalName}`)
     
     const result = await ragService.processDocument(filePath, userId)
     
-    // Update document status
     document.status = 'completed'
     document.chunks = result.chunks
     document.processedAt = new Date()
@@ -113,8 +110,7 @@ async function processDocumentAsync(document, filePath, userId) {
     
   } catch (error) {
     console.error(`❌ Document processing failed: ${document.originalName}`, error)
-    
-    // Update document with error status
+
     document.status = 'error'
     document.error = error.message
     document.processedAt = new Date()
@@ -128,7 +124,7 @@ router.get('/documents/:userId', async (req, res) => {
     const { userId } = req.params
     
     const documents = await Document.find({ userId })
-      .select('-filePath') // Don't expose file paths
+      .select('-filePath') 
       .sort({ uploadedAt: -1 })
     
     res.json({
@@ -145,6 +141,7 @@ router.get('/documents/:userId', async (req, res) => {
     })
   }
 })
+
 
 // Delete document
 router.delete('/documents/:documentId', async (req, res) => {
@@ -185,6 +182,7 @@ router.delete('/documents/:documentId', async (req, res) => {
     })
   }
 })
+
 
 // Error handling middleware for multer
 router.use((error, req, res, next) => {
