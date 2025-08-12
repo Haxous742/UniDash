@@ -11,12 +11,10 @@ const initPinecone = async () => {
         apiKey: process.env.PINECONE_API_KEY
       })
 
-      // Test the connection
       const indexes = await pineconeClient.listIndexes()
       console.log('✅ Pinecone connected successfully')
       console.log(`📊 Available indexes: ${indexes.indexes?.map(i => i.name).join(', ') || 'None'}`)
       
-      // Check if our index exists
       const indexName = process.env.PINECONE_INDEX_NAME
       const indexExists = indexes.indexes?.some(i => i.name === indexName)
       
@@ -37,7 +35,6 @@ const initPinecone = async () => {
         
         console.log(`✅ Index "${indexName}" created successfully`)
         
-        // Wait for index to be ready
         console.log('⏳ Waiting for index to be ready...')
         let ready = false
         while (!ready) {
