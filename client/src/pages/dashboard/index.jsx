@@ -12,6 +12,8 @@ import Sidebar from '../../components/Sidebar'
  * Handles the event when a file is uploaded by adding the file name 
  * to the list of uploaded files.
  *
+ * @param {string} fileName - The name of the uploaded file to be added.
+ */
 
 /*******  2f7a59f5-eb1d-4e91-92bb-c2deaf45b449  *******/import { getUserDocuments } from '../../Api/documents';
 import { getChatStats } from '../../Api/chat';
