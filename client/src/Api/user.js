@@ -5,8 +5,17 @@ const getLoggedUser = async() => {
         const response = await axiosInstance.get('/api/user/get-logged-user');
         return response.data;
     } catch(err){
-        return err;
+        return { success: false, error: err.response?.data || err.message };
     }
 }
 
-export default getLoggedUser;
+const updateProfile = async(profileData) => {
+    try{
+        const response = await axiosInstance.put('/api/user/update-profile', profileData);
+        return response.data;
+    } catch(err){
+        return { success: false, error: err.response?.data || err.message };
+    }
+}
+
+export { getLoggedUser, updateProfile };
