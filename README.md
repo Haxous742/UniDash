@@ -279,7 +279,7 @@ npm install
 **Backend** (Terminal 1):
 ```bash
 cd server
-npm run dev
+npm start
 ```
 
 **Frontend** (Terminal 2):
@@ -300,7 +300,7 @@ npm run dev
 # 1) Backend
 cd server
 npm install
-npm run dev
+npm start
 
 # 2) Frontend (new terminal)
 cd ../client
@@ -514,77 +514,10 @@ curl -X POST http://localhost:4000/api/flashcards/generate \
 - **Route Protection**: Middleware-based access control
 - **CORS Configuration**: Restricted cross-origin requests
 
-### Data Security
-- **Input Validation**: Comprehensive data validation
-- **SQL Injection Prevention**: Mongoose ODM protection
-- **XSS Protection**: Input sanitization
-- **File Upload Security**: Type and size validation
-
 ### Privacy
 - **User Data Isolation**: Namespace-based vector storage
 - **Secure File Storage**: Protected upload directory
 - **Session Management**: Automatic token expiration
-
----
-
-## 🚀 Deployment
-
-### Production Environment Setup
-
-#### Backend Deployment
-1. **Environment Variables**: Set all required environment variables
-2. **Database**: Use MongoDB Atlas for production database
-3. **File Storage**: Configure AWS S3 or Google Cloud Storage
-4. **SSL Certificate**: Enable HTTPS with proper SSL certificates
-
-#### Frontend Deployment
-1. **Build Optimization**: Run `npm run build` for production build
-2. **Static Hosting**: Deploy to Vercel, Netlify, or similar platforms
-3. **Environment Configuration**: Update API endpoints for production
-
-#### Recommended Deployment Stack
-- **Frontend**: Vercel or Netlify
-- **Backend**: Railway, Render, or AWS EC2
-- **Database**: MongoDB Atlas
-- **File Storage**: AWS S3 or Google Cloud Storage
-- **Vector Database**: Pinecone (managed service)
-
----
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
-
-### Development Workflow
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Code Standards
-- **ESLint**: Follow the established linting rules
-- **Prettier**: Use for consistent code formatting
-- **Commit Messages**: Follow conventional commit format
-- **Documentation**: Update documentation for new features
-
----
-
-## 🗺️ Roadmap
-
-### Version 2.0 Features
-- [ ] **Real-time Collaboration**: Multi-user study sessions
-- [ ] **Advanced Analytics**: Detailed learning insights and progress tracking
-- [ ] **Mobile App**: React Native mobile application
-- [ ] **Voice Integration**: Voice-to-text and text-to-speech capabilities
-- [ ] **Plugin System**: Extensible architecture for third-party integrations
-
-### Version 1.5 Features
-- [ ] **Streaming Responses**: Real-time chat response streaming
-- [ ] **Document Collaboration**: Shared document spaces
-- [ ] **Advanced Search**: Full-text search across all documents
-- [ ] **Export Features**: Export flashcards and study materials
-- [ ] **Offline Mode**: Progressive Web App capabilities
 
 ---
 
@@ -593,36 +526,4 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
-
-## 🙏 Acknowledgments
-
-- **LangChain** for the excellent RAG framework
-- **Google AI** for powerful language models
-- **Pinecone** for vector database capabilities
-- **React Team** for the amazing frontend framework
-- **Tailwind CSS** for the utility-first CSS framework
-
----
-
-## 📞 Support
-
-### Getting Help
-- **Documentation**: Check our comprehensive docs
-- **Issues**: Open an issue on GitHub for bugs
-- **Discussions**: Join our community discussions
-- **Email**: Contact us at support@unidash.com
-
-### Community
-- **Discord**: Join our developer community
-- **Twitter**: Follow us @UniDashApp
-- **Blog**: Read our technical blog for updates
-
----
-
-<div align="center">
-
-**Made with ❤️ by the UniDash Team**
-
-[⭐ Star this repo](https://github.com/yourusername/unidash) • [🐛 Report Bug](https://github.com/yourusername/unidash/issues) • [✨ Request Feature](https://github.com/yourusername/unidash/issues)
-
 </div>
