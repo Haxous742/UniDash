@@ -17,20 +17,12 @@ const app = require('./app');
 
 const PORT = process.env.PORT;
 
-// app.listen(port, () => {
-//     console.log(`Server is running on port ${port}`);
-// })
-
 async function startServer() {
   try {
-    // Initialize Pinecone
     await initPinecone()
     
-    // Start server
     app.listen(PORT, () => {
       console.log(`🚀 StudyBot server running on port ${PORT}`)
-      console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`)
-      console.log(`🔗 Health check: http://localhost:${PORT}/api/health`)
     })
   } catch (error) {
     console.error('❌ Failed to start server:', error)
