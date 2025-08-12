@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![UniDash Logo](https://via.placeholder.com/150x150/4F46E5/FFFFFF?text=UniDash)
-
 **Transform Your Study Experience with AI-Powered Document Analysis**
 
 UniDash lets you upload PDFs, chat with an AI that understands your content, and auto‑generate spaced‑repetition flashcards from your documents. It ships with a modern React UI and a Node.js/Express backend powered by MongoDB, LangChain, Gemini, and Pinecone.
@@ -34,17 +32,20 @@ UniDash is an intelligent study assistant that revolutionizes how students inter
 ---
 
 ## ✨ Features
+###  Landing Page
+
+![Landing Page](./screenshots/landing.png)
 
 ### 🤖 AI-Powered Document Analysis
 Transform your study materials into an interactive learning experience. Our advanced RAG system understands context and provides accurate, grounded responses from your uploaded documents.
 
-![AI Chat Feature](docs/screenshots/ai-chat.png)
+![AI Chat Feature](./screenshots/ai-chat.png)
 *Interactive chat interface with contextual responses from your documents*
 
 ### 📚 Document Management
 Upload and manage your academic PDFs with ease. Support for research papers, textbooks, lecture notes, and more with automatic processing and indexing.
 
-![Document Upload](docs/screenshots/document-upload.png)
+![Document Upload](./screenshots/document-upload.png)
 *Drag-and-drop interface with real-time processing status*
 
 ### 🎴 Intelligent Flashcard Generation
@@ -54,25 +55,25 @@ Automatically generate high-quality flashcards from your documents using AI. Fea
 - **Spaced Repetition**: Optimized review scheduling
 - **Progress Tracking**: Detailed analytics and performance metrics
 
-![Flashcard Generation](docs/screenshots/flashcard-generation.png)
+![Flashcard Generation](./screenshots/flashcard-generation.png)
 *AI-powered flashcard creation from document content*
 
 ### 📊 Study Mode & Analytics
 Comprehensive study experience with interactive flashcards, progress tracking, and detailed statistics to optimize your learning.
 
-![Study Mode](docs/screenshots/study-mode.png)
+![Study Mode](./screenshots/study-mode.png)
 *Interactive study interface with flip animations and progress tracking*
 
 ### 💬 Chat History & Management
 Organize your conversations with document-specific chat sessions, search functionality, and conversation management.
 
-![Chat Management](docs/screenshots/chat-management.png)
+![Chat Management](./screenshots/chat-management.png)
 *Chat history with search and organization features*
 
 ### 🔐 Secure Authentication
 Multi-layered security with JWT tokens, HTTP-only cookies, and Firebase integration for Google Sign-In.
 
-![Authentication](docs/screenshots/authentication.png)
+![Authentication](./screenshots/authentication.png)
 *Secure login interface with multiple authentication options*
 
 
@@ -382,47 +383,6 @@ Base URL: `/api`
 - `Message` – message items linked to chats (role: user/assistant)
 - `FlashCard` – question/answer, difficulty, review stats
 - `FlashCardSet` – collection of cards, tags, study settings, and set‑level stats
-
-
-## Screenshots and Feature Walkthrough
-
-Add screenshots/GIFs in `docs/screenshots/` and update the links below.
-
-### 1) Landing Page
-![Landing Page](docs/screenshots/landing.png)
-
-Brief note: Hero, features, CTA.
-
-### 2) Upload PDFs
-![Upload](docs/screenshots/upload.png)
-
-Brief note: Drag & drop PDFs, per‑file progress, size validation.
-
-### 3) Documents List
-![Documents](docs/screenshots/documents.png)
-
-Brief note: Status (processing/completed/error), size, upload time.
-
-### 4) AI Chat Over Your Docs
-![Chat](docs/screenshots/chat.png)
-
-Brief note: Create/rename/delete chats, typing indicator, Markdown responses.
-
-### 5) Generate Flashcards
-![Generate Flashcards](docs/screenshots/flashcards-generate.png)
-
-Brief note: Pick a document, generate up to 6 high‑quality cards and a set.
-
-### 6) Flashcards Dashboard
-![Flashcards Dashboard](docs/screenshots/flashcards-dashboard.png)
-
-Brief note: Sets grid, filtering, bookmarking, stats.
-
-### 7) Study Mode
-![Study Mode](docs/screenshots/study-mode.png)
-
-Brief note: Flip cards, mark correct/incorrect, progress and session stats.
-
 
 ## Quick API Examples
 
