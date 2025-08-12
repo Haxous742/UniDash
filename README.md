@@ -8,9 +8,12 @@ UniDash lets you upload PDFs, chat with an AI that understands your content, and
 
 [![React](https://img.shields.io/badge/React-19.1.0-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-Latest-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-Latest-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-8.17.0-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![LangChain](https://img.shields.io/badge/LangChain-Latest-1B5E20?style=for-the-badge&logo=chainlink&logoColor=white)](https://www.langchain.com/)
 [![Gemini](https://img.shields.io/badge/Gemini_AI-Latest-FF6B6B?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
 [![Pinecone](https://img.shields.io/badge/Pinecone-Vector_DB-8A2BE2?style=for-the-badge&logo=pinecone&logoColor=white)](https://www.pinecone.io/)
+
 
 </div>
 
@@ -407,64 +410,6 @@ curl -X POST http://localhost:4000/api/flashcards/generate \
   -H "Content-Type: application/json" \
   -d '{"documentId":"DOC_ID","userId":"USER_ID"}'
 ```
-
-
-## 🔍 Database Models
-
-### User Schema
-```javascript
-{
-  _id: ObjectId,
-  firstname: String,
-  lastname: String,
-  email: String (unique),
-  password: String (hashed),
-  firebaseUid: String (optional),
-  createdAt: Date,
-  updatedAt: Date
-}
-```
-
-### Document Schema
-```javascript
-{
-  _id: ObjectId,
-  filename: String,
-  originalName: String,
-  userId: ObjectId,
-  uploadedAt: Date,
-  status: String, // 'processing', 'completed', 'error'
-  processingDetails: {
-    chunks: Number,
-    vectorsStored: Number,
-    error: String
-  }
-}
-```
-
-### FlashCard Schema
-```javascript
-{
-  _id: ObjectId,
-  question: String,
-  answer: String,
-  difficulty: String, // 'easy', 'medium', 'hard'
-  tags: [String],
-  userId: ObjectId,
-  documentId: ObjectId,
-  sourceChunk: String,
-  reviewStats: {
-    totalReviews: Number,
-    correctReviews: Number,
-    lastReviewed: Date,
-    nextReview: Date
-  },
-  isBookmarked: Boolean,
-  createdAt: Date
-}
-```
-
----
 
 ## 🔐 Security Features
 
