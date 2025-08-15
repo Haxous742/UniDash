@@ -15,7 +15,7 @@ if (!fs.existsSync(uploadDir)) {
 
 const app = require('./app');
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 async function startServer() {
   try {
