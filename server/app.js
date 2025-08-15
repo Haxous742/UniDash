@@ -13,7 +13,7 @@ const flashCardRouter = require('./controllers/flashCardController');
 const flashCardSetRouter = require('./controllers/flashCardSetController');
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174'], 
+  origin: ['http://localhost:5173', 'http://localhost:5174','https://unidash-zense.onrender.com'], 
   credentials: true               
 }));
 
