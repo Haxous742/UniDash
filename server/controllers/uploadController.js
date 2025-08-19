@@ -82,7 +82,6 @@ router.post('/upload', upload.single('file'), async (req, res) => {
   } catch (error) {
     console.error('❌ Upload error:', error)
     
-    // Clean up uploaded file if it exists
     if (req.file && fs.existsSync(req.file.path)) {
       fs.unlinkSync(req.file.path)
     }

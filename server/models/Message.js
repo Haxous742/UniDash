@@ -42,7 +42,7 @@ const MessageSchema = new mongoose.Schema({
     },
     model: {
       type: String,
-      default: 'gpt-3.5-turbo'
+      default: 'gemini-1.5-flash'
     }
   },
   createdAt: {

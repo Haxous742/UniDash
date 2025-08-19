@@ -27,7 +27,6 @@ router.put('/update-profile', authMiddleware, async (req, res) => {
     try {
         const { firstname, lastname } = req.body;
         
-        // Validate input
         if (!firstname || !lastname) {
             return res.status(400).send({
                 message: 'First name and last name are required',
@@ -35,7 +34,6 @@ router.put('/update-profile', authMiddleware, async (req, res) => {
             });
         }
 
-        // Update user profile
         const updatedUser = await User.findByIdAndUpdate(
             req.userId,
             { 
@@ -43,8 +41,8 @@ router.put('/update-profile', authMiddleware, async (req, res) => {
                 lastname: lastname.trim()
             },
             { 
-                new: true, // Return updated document
-                runValidators: true // Run schema validators
+                new: true, 
+                runValidators: true 
             }
         );
 
@@ -70,7 +68,7 @@ router.put('/update-profile', authMiddleware, async (req, res) => {
 });
 
 
-// Debug route to test if routes are working
+// Debug
 router.get('/test', (req, res) => {
     res.send({
         message: 'User routes are working!',

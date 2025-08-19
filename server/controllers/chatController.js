@@ -33,7 +33,7 @@ router.get('/chats/:userId', async (req, res) => {
     })
 
   } catch (error) {
-    console.error('❌ Error fetching chats:', error)
+    console.error('Error fetching chats:', error)
     res.status(500).json({
       success: false,
       error: 'Failed to fetch chats'
@@ -77,7 +77,7 @@ router.get('/chats/:userId/stats', async (req, res) => {
     })
 
   } catch (error) {
-    console.error('❌ Error fetching chat stats:', error)
+    console.error('Error fetching chat stats:', error)
     res.status(500).json({
       success: false,
       error: 'Failed to fetch chat statistics'
@@ -143,7 +143,7 @@ router.post('/chats', async (req, res) => {
     })
 
   } catch (error) {
-    console.error('❌ Error creating chat:', error)
+    console.error('Error creating chat:', error)
     res.status(500).json({
       success: false,
       error: 'Failed to create chat'
@@ -181,7 +181,7 @@ router.put('/chats/:chatId', async (req, res) => {
     })
 
   } catch (error) {
-    console.error('❌ Error updating chat:', error)
+    console.error('Error updating chat:', error)
     res.status(500).json({
       success: false,
       error: 'Failed to update chat'
@@ -195,7 +195,6 @@ router.delete('/chats/:chatId', async (req, res) => {
     const { chatId } = req.params
     const { userId } = req.body
 
-    // First verify the chat exists and belongs to the user
     const chat = await Chat.findOne({ _id: chatId, userId })
     
     if (!chat) {
@@ -205,11 +204,9 @@ router.delete('/chats/:chatId', async (req, res) => {
       })
     }
 
-    // Delete all messages associated with this chat
     const messageDeleteResult = await Message.deleteMany({ chatId })
     console.log(`🗑️ Deleted ${messageDeleteResult.deletedCount} messages from chat ${chatId}`)
 
-    // Delete the chat itself
     await Chat.findByIdAndDelete(chatId)
     console.log(`🗑️ Deleted chat ${chatId} for user ${userId}`)
 
@@ -220,7 +217,7 @@ router.delete('/chats/:chatId', async (req, res) => {
     })
 
   } catch (error) {
-    console.error('❌ Error deleting chat:', error)
+    console.error('Error deleting chat:', error)
     res.status(500).json({
       success: false,
       error: 'Failed to delete chat'

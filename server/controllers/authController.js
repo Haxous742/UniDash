@@ -35,10 +35,8 @@ router.post('/signup', async (req,res) => {
     }
 })
 
-
 router.post('/login', async (req, res) => {
     try{
-        //find if user exists
         const user = await User.findOne({email: req.body.email}).select('+password');
 
         if (!user){
@@ -48,7 +46,6 @@ router.post('/login', async (req, res) => {
             })
         }
 
-        // check if passsword is correct
         const isvalid = await bcrypt.compare(req.body.password, user.password);
 
         if (!isvalid){
@@ -58,7 +55,6 @@ router.post('/login', async (req, res) => {
             })
         }
 
-        //generate JWT token
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '1d'});
         
         res.cookie("token", token, {

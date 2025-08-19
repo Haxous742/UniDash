@@ -22,7 +22,7 @@ async function startServer() {
     await initPinecone()
     
     app.listen(PORT, () => {
-      console.log(`🚀 StudyBot server running on port ${PORT}`)
+      console.log(`StudyBot server running on port ${PORT}`)
     })
   } catch (error) {
     console.error('❌ Failed to start server:', error)

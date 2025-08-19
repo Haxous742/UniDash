@@ -14,7 +14,6 @@ router.post("/firebase-login", async (req, res) => {
     let user = await Users.findOne({ email : email});
 
     if (!user) {
-      // Parse name if provided
       const nameParts = name ? name.split(' ') : [];
       const firstname = nameParts[0] || '';
       const lastname = nameParts.slice(1).join(' ') || '';

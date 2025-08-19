@@ -136,7 +136,6 @@ router.get('/user/:userId', async (req, res) => {
       sortOrder = 'desc'
     } = req.query
 
-    // Build filter object
     const filter = { userId, isActive: true }
     
     if (difficulty) filter.difficulty = difficulty
@@ -144,11 +143,9 @@ router.get('/user/:userId', async (req, res) => {
     if (isBookmarked !== undefined) filter.isBookmarked = isBookmarked === 'true'
     if (tags) filter.tags = { $in: tags.split(',') }
 
-    // Build sort object
     const sort = {}
     sort[sortBy] = sortOrder === 'asc' ? 1 : -1
 
-    // Get flashcards with pagination
     const skip = (parseInt(page) - 1) * parseInt(limit)
     
     const [flashcards, totalCount] = await Promise.all([
@@ -175,7 +172,7 @@ router.get('/user/:userId', async (req, res) => {
     })
 
   } catch (error) {
-    console.error('❌ Error fetching flashcards:', error)
+    console.error('Error fetching flashcards:', error)
     res.status(500).json({
       success: false,
       error: 'Failed to fetch flashcards'
@@ -223,7 +220,6 @@ router.get('/stats/:userId', async (req, res) => {
       averageDifficulty: 0
     }
 
-    // Calculate difficulty distribution
     const difficultyCount = { easy: 0, medium: 0, hard: 0 }
     if (result.cardsByDifficulty) {
       result.cardsByDifficulty.forEach(diff => {
@@ -247,7 +243,7 @@ router.get('/stats/:userId', async (req, res) => {
     })
 
   } catch (error) {
-    console.error('❌ Error fetching stats:', error)
+    console.error('Error fetching stats:', error)
     res.status(500).json({
       success: false,
       error: 'Failed to fetch statistics'
@@ -281,7 +277,7 @@ router.get('/:cardId', async (req, res) => {
     })
 
   } catch (error) {
-    console.error('❌ Error fetching flashcard:', error)
+    console.error('Error fetching flashcard:', error)
     res.status(500).json({
       success: false,
       error: 'Failed to fetch flashcard'
@@ -322,7 +318,7 @@ router.put('/:cardId', async (req, res) => {
     })
 
   } catch (error) {
-    console.error('❌ Error updating flashcard:', error)
+    console.error('Error updating flashcard:', error)
     res.status(500).json({
       success: false,
       error: 'Failed to update flashcard'
@@ -356,7 +352,7 @@ router.delete('/:cardId', async (req, res) => {
     })
 
   } catch (error) {
-    console.error('❌ Error deleting flashcard:', error)
+    console.error('Error deleting flashcard:', error)
     res.status(500).json({
       success: false,
       error: 'Failed to delete flashcard'
@@ -384,14 +380,12 @@ router.post('/:cardId/review', async (req, res) => {
       })
     }
 
-    // Update review statistics
     flashcard.reviewStats.reviewCount += 1
     if (isCorrect) {
       flashcard.reviewStats.correctCount += 1
     }
     flashcard.reviewStats.lastReviewed = new Date()
 
-    // Calculate next review date using spaced repetition algorithm
     if (isCorrect) {
       flashcard.reviewStats.interval = Math.ceil(
         flashcard.reviewStats.interval * flashcard.reviewStats.easeFactor
@@ -416,7 +410,7 @@ router.post('/:cardId/review', async (req, res) => {
     })
 
   } catch (error) {
-    console.error('❌ Error recording review:', error)
+    console.error('Error recording review:', error)
     res.status(500).json({
       success: false,
       error: 'Failed to record review'

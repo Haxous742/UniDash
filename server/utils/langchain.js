@@ -60,6 +60,7 @@ Instructions:
 - Vary difficulty levels (easy, medium, hard)
 - Include relevant tags/topics for each card
 - Ensure questions are answerable from the provided content
+- Please ensuer that the flahscards that you are generating are only in regard to the chunks provided in the content. Some times the chunk may contain overlap from other documents, but the flashcards should only be based on the content provided in the chunks.
 
 Generate flashcards in this exact JSON format:
 [
@@ -76,21 +77,17 @@ Flashcards:`)
   }
 
 
-
   async processDocument(filePath, userId) {
     try {
-      console.log(`📄 Processing document: ${filePath}`)
+      console.log(`Processing document: ${filePath}`)
       
-      // Load PDF
       const loader = new PDFLoader(filePath)
       const docs = await loader.load()
-      console.log(`📚 Loaded ${docs.length} pages from PDF`)
+      console.log(`Loaded ${docs.length} pages from PDF`)
 
-      // Split documents into chunks
       const chunks = await this.textSplitter.splitDocuments(docs)
-      console.log(`✂️  Split into ${chunks.length} chunks`)
+      console.log(`Split into ${chunks.length} chunks`)
 
-      // Add metadata
       const chunksWithMetadata = chunks.map((chunk, index) => ({
         ...chunk,
         metadata: {
@@ -102,17 +99,15 @@ Flashcards:`)
         }
       }))
 
-      // Get Pinecone index
       const pineconeIndex = getIndex()
       
-      // Create vector store
-      console.log('🔄 Creating embeddings and storing in Pinecone...')
+      console.log('Creating embeddings and storing in Pinecone...')
       const vectorStore = await PineconeStore.fromDocuments(
         chunksWithMetadata,
         this.embeddings,
         {
           pineconeIndex,
-          namespace: userId // Use userId as namespace for isolation
+          namespace: userId 
         }
       )
 
@@ -131,19 +126,16 @@ Flashcards:`)
 
   async queryDocuments(query, userId) {
     try {
-      console.log(`🔍 Querying documents for user: ${userId}`)
-      console.log(`❓ Query: "${query}"`)
+      console.log(`Querying documents for user: ${userId}`)
+      console.log(`Query: "${query}"`)
 
-      // Get Pinecone index
       const pineconeIndex = getIndex()
-      
-      // Create vector store instance
+
       const vectorStore = new PineconeStore(this.embeddings, {
         pineconeIndex,
         namespace: userId
       })
 
-      // Search for relevant documents
       console.log('🔄 Searching for relevant documents...')
       const relevantDocs = await vectorStore.similaritySearch(query, 5)
       
@@ -157,20 +149,17 @@ Flashcards:`)
         }
       }
 
-      // Combine context from relevant documents
       const context = relevantDocs.map((doc, index) => 
         `[Document ${index + 1}]\\n${doc.pageContent}`
       ).join('\\n\\n')
 
       console.log(`📝 Context length: ${context.length} characters`)
 
-      // Generate prompt
       const prompt = await this.promptTemplate.format({
         context,
         question: query
       })
 
-      // Get response from LLM
       console.log('🤖 Generating response...')
       const response = await this.llm.invoke(prompt)
       
@@ -196,8 +185,6 @@ Flashcards:`)
   async getUserDocuments(userId) {
     try {
       const pineconeIndex = getIndex()
-      
-      // Query to get all vectors for this user (limited approach)
       const stats = await pineconeIndex.describeIndexStats()
       
       return {
@@ -217,7 +204,6 @@ Flashcards:`)
       
       const pineconeIndex = getIndex()
       
-      // Delete all vectors in the user's namespace
       await pineconeIndex.deleteAll(userId)
       
       console.log('✅ User documents deleted successfully')
@@ -239,17 +225,13 @@ Flashcards:`)
         focusTopics = null
       } = options
 
-      // Get Pinecone index
       const pineconeIndex = getIndex()
       
-      // Create vector store instance
       const vectorStore = new PineconeStore(this.embeddings, {
         pineconeIndex,
         namespace: userId
       })
 
-      // Get document chunks from vector store
-      // We'll search for general concepts to get a good sample of content
       const searchQueries = focusTopics || [
         'definition concept explanation',
         'important key main',
@@ -269,7 +251,6 @@ Flashcards:`)
         }
       }
 
-      // Remove duplicates and limit chunks
       const uniqueChunks = allRelevantChunks.filter((chunk, index, arr) => 
         arr.findIndex(c => c.pageContent === chunk.pageContent) === index
       ).slice(0, Math.max(5, Math.ceil(maxCards / 2)))
@@ -280,29 +261,24 @@ Flashcards:`)
         throw new Error('No document content found for flashcard generation')
       }
 
-      // Combine content from chunks
       const combinedContent = uniqueChunks.map((chunk, index) => 
         `[Chunk ${index + 1}]\n${chunk.pageContent}`
       ).join('\n\n')
 
       console.log(`📝 Combined content length: ${combinedContent.length} characters`)
 
-      // Generate flashcard prompt
       const prompt = await this.flashcardPrompt.format({
         content: combinedContent
       })
 
-      // Generate flashcards using LLM
       console.log('🤖 Generating flashcards...')
       const response = await this.llm.invoke(prompt)
       
       console.log('📄 Raw LLM response:', response.content.substring(0, 200) + '...')
 
-      // Parse flashcards using regex instead of JSON parsing
       console.log('🔍 Extracting flashcards using regex patterns...')
       const flashcards = this.extractFlashcardsFromText(response.content, uniqueChunks)
 
-      // Validate and enhance flashcards
       const validFlashcards = flashcards
         .filter(card => card.question && card.answer)
         .slice(0, maxCards)
@@ -333,10 +309,8 @@ Flashcards:`)
     const flashcards = []
     console.log('🔍 Extracting flashcards from text response...')
     
-    // Remove code block markers
     const cleanText = text.replace(/```json\s*/g, '').replace(/```\s*$/g, '')
     
-    // Pattern 1: Extract "question": "...", "answer": "..." pairs using regex
     const questionAnswerRegex = /"question"\s*:\s*"([^"]*)",?\s*"answer"\s*:\s*"([^"]*)"/gi
     let matches = [...cleanText.matchAll(questionAnswerRegex)]
     
@@ -357,29 +331,26 @@ Flashcards:`)
       }
     })
     
-    // Pattern 2: If no matches, try line-by-line approach
     if (flashcards.length === 0) {
-      console.log('🗒 Trying line-by-line extraction...')
+      console.log('Trying line-by-line extraction...')
       const lines = cleanText.split('\n').map(line => line.trim()).filter(line => line.length > 0)
       
       for (let i = 0; i < lines.length - 1; i++) {
         const currentLine = lines[i]
         const nextLine = lines[i + 1]
         
-        // Look for patterns like "What is...?" followed by an answer
         if (currentLine.includes('?') && !nextLine.includes('?') && nextLine.length > 10) {
-          // Extract question by removing common prefixes
           let question = currentLine
-            .replace(/^\s*[\d.-]+\s*/, '') // Remove numbering
-            .replace(/^\s*"question"\s*:\s*"/i, '') // Remove "question":
-            .replace(/^\s*\{?\s*"question"\s*:\s*"/i, '') // Remove {"question":
-            .replace(/"\s*,?\s*$/, '') // Remove trailing quotes and commas
+            .replace(/^\s*[\d.-]+\s*/, '') 
+            .replace(/^\s*"question"\s*:\s*"/i, '') 
+            .replace(/^\s*\{?\s*"question"\s*:\s*"/i, '') 
+            .replace(/"\s*,?\s*$/, '') 
             .trim()
             
           // Extract answer
           let answer = nextLine
-            .replace(/^\s*"answer"\s*:\s*"/i, '') // Remove "answer":
-            .replace(/"\s*,?\s*\}?\s*$/, '') // Remove trailing quotes, commas, braces
+            .replace(/^\s*"answer"\s*:\s*"/i, '') 
+            .replace(/"\s*,?\s*\}?\s*$/, '') 
             .trim()
             
           if (question.length > 5 && answer.length > 5) {
@@ -395,13 +366,11 @@ Flashcards:`)
       }
     }
     
-    // Pattern 3: Create basic flashcards from document content if still nothing found
     if (flashcards.length === 0) {
       console.log('🔨 Creating basic flashcards from document chunks as last resort...')
       chunks.slice(0, 3).forEach((chunk, index) => {
         const content = chunk.pageContent.trim()
         if (content.length > 100) {
-          // Find the first sentence that's substantial
           const sentences = content.split(/[.!?]/).filter(s => s.trim().length > 30)
           if (sentences.length >= 1) {
             const firstSentence = sentences[0].trim()
